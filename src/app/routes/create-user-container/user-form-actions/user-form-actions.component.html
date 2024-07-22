@@ -1,3 +1,6 @@
 <div class="col-12">
-  <button class="btn btn-primary">Submit all forms</button>
+  <button [disabled]="value > 0" class="btn btn-primary me-2">Submit all forms</button>
+  @if (value > 0) {
+    <span class="text-danger">Invalid forms: {{value}}</span>
+  }
 </div>

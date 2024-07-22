@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-add-form-button',
@@ -8,6 +8,8 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrl: './add-form-button.component.scss'
 })
 export class AddFormButton {
+  @Input()
+  formsCount!: number;
   @Output()
   public readonly addFormClicked: EventEmitter<void> = new EventEmitter<void>();
 }

@@ -1,7 +1,9 @@
 <div class="container mt-4">
-  <div class="row mb-3">
-    <app-user-form-actions/>
-  </div>
+  @if (createUserFormArray.length > 0) {
+    <div class="row mb-3">
+      <app-user-form-actions name="fieldName" ngDefaultControl [(ngModel)]="invalidFormsCount"/>
+    </div>
+  }
   <div class="row">
     @for (form of createUserFormArray.controls; track form; let index = $index) {
     <div class="col-md-6">
@@ -10,7 +12,7 @@
     }
 
     <div class="col-md-6 d-flex justify-content-center align-items-center">
-     <app-add-form-button (addFormClicked)="addNewForm()"/>
+     <app-add-form-button [formsCount]="createUserFormArray.length" (addFormClicked)="addNewForm()"/>
     </div>
   </div>
 </div>
