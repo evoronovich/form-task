@@ -1,11 +1,12 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CreateUserForm} from '../../../model/create-user-form';
+import {IsValidDirective} from '../../../shared/directives/is-valid.directive';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, IsValidDirective],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss'
 })

@@ -6,15 +6,15 @@
       <form>
         <div class="mb-3">
           <label for="country" class="form-label">Country</label>
-          <input formControlName="country" type="text" id="country" class="form-control" name="country">
+          <input [appIsInvalid]="!userForm.get('country')?.valid" formControlName="country" type="text" id="country" class="form-control" name="country">
         </div>
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
-          <input formControlName="username" type="text" id="username" class="form-control" name="username">
+          <input [appIsInvalid]="!userForm.get('username')?.valid" formControlName="username" type="text" id="username" class="form-control" name="username">
         </div>
         <div class="mb-3">
           <label for="birthday" class="form-label">Birthday</label>
-          <input formControlName="birthday" type="date" id="birthday" class="form-control" name="birthday">
+          <input [appIsInvalid]="!userForm.get('birthday')?.valid" formControlName="birthday" type="date" id="birthday" class="form-control" name="birthday">
         </div>
       </form>
     </div>
