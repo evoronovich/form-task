@@ -24,4 +24,7 @@ export class CreateUserContainerComponent implements OnInit{
   public addNewForm(): void {
     this.createUserFormArray.push(this.createFormService.createUserForm());
   }
+  public removeForm(formIndex: number): void {
+    this.createUserFormArray.removeAt(formIndex);
+  }
 }

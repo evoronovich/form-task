@@ -6,6 +6,7 @@ import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@ang
 import {MockBackendInterceptor} from "./shared/mock-backend/mock-backend.interceptor";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AppRoutingModule} from './app-routing.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],

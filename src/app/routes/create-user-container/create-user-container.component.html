@@ -3,9 +3,9 @@
     <app-user-form-actions/>
   </div>
   <div class="row">
-    @for (form of createUserFormArray.controls; track form) {
+    @for (form of createUserFormArray.controls; track form; let index = $index) {
     <div class="col-md-6">
-      <app-user-form/>
+      <app-user-form [userForm]="form" [formIndex]="index" (removeForm)="removeForm($event)"/>
      </div>
     }
 
