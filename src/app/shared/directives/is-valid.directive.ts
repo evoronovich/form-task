@@ -1,21 +1,30 @@
-import {Directive, ElementRef, Input, OnChanges, Renderer2, SimpleChanges} from '@angular/core';
+import {Directive, ElementRef, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {NgControl} from '@angular/forms';
+import {Subscription, tap} from 'rxjs';
 
 @Directive({
   selector: '[appIsInvalid]',
   standalone: true
 })
-export class IsValidDirective implements OnChanges {
-  @Input() appIsInvalid: boolean = true;
-  @Input() formControlName: string = '';
+export class IsValidDirective implements OnInit, OnDestroy {
+  private subscription: Subscription = new Subscription();
 
-  constructor(private el: ElementRef, private renderer: Renderer2, private ngControl: NgControl) {
+  constructor(private el: ElementRef,
+              private renderer: Renderer2,
+              private ngControl: NgControl) {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['appIsInvalid'] || changes['formControlName']) {
-      this.updateValidationState();
-    }
+  ngOnInit(): void {
+    this.subscription.add(
+      this.ngControl.statusChanges?.pipe(
+        tap(() => this.updateValidationState())
+      ).subscribe()
+    );
+    this.updateValidationState();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   private updateValidationState() {

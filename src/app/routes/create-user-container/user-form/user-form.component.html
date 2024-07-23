@@ -9,17 +9,17 @@
           <div class="autocomplete-container">
             <app-autocomplete name="country" id="country"
                               [options]="countries"
-                              [appIsInvalid]="!userForm.get('country')?.valid" formControlName="country"/>
+                              appIsInvalid formControlName="country"/>
           </div>
         </div>
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
-          <input [appIsInvalid]="!userForm.get('username')?.valid" formControlName="username" type="text" id="username"
+          <input appIsInvalid formControlName="username" type="text" id="username"
                  class="form-control" name="username">
         </div>
         <div class="mb-3">
           <label for="birthday" class="form-label">Birthday</label>
-          <input [appIsInvalid]="!userForm.get('birthday')?.valid" formControlName="birthday" type="date" id="birthday"
+          <input appIsInvalid formControlName="birthday" type="date" id="birthday"
                  class="form-control" name="birthday">
         </div>
       </form>
