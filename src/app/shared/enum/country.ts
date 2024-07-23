@@ -7,3 +7,5 @@ export enum Country {
   USA = 'USA',
   Mexico = 'Mexico',
 }
+
+export const countries = Object.values(Country);

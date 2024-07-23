@@ -2,49 +2,6 @@
   padding: 20px;
   height: 100%; /* Ensures the card takes full height of the column */
 }
-.autocomplete-items {
-  max-height: 200px;
-  overflow-y: auto;
-  z-index: 1000;
-}
-
-.autocomplete-item {
-  cursor: pointer;
-}
-
-.autocomplete-item:hover {
-  background-color: #ddd;
-}
-
-
-.autocomplete-container {
-  position: relative;
-  width: 100%;
-}
-
 input {
   width: 100%;
-}
-
-ul {
-  position: relative;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  max-height: 200px;
-  overflow-y: auto;
-  margin-top: 0.5rem;
-  padding: 0;
-  border: 1px solid #ccc;
-  border-radius: 0.25rem;
-  background-color: #fff;
-}
-
-.list-group-item {
-  cursor: pointer;
-}
-
-.list-group-item:hover {
-  background-color: #f8f9fa;
 }

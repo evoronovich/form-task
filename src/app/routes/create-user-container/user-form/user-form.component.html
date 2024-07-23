@@ -7,21 +7,9 @@
         <div class="mb-3">
           <label for="country" class="form-label">Country</label>
           <div class="autocomplete-container">
-            <input [appIsInvalid]="!userForm.get('country')?.valid" formControlName="country"
-                   type="text" id="country" placeholder="Start typing..." class="form-control" name="country">
-            <ng-container *ngIf="filteredSuggestions | async as suggestions">
-              <ul class="list-group">
-                @for (country of suggestions; track country) {
-                  <li
-                    class="list-group-item list-group-item-action"
-                    (click)="listGroupItemPicked(country)"
-                  >
-                    {{ country }}
-                  </li>
-                }
-              </ul>
-            </ng-container>
-
+            <app-autocomplete name="country" id="country"
+                              [options]="countries"
+                              [appIsInvalid]="!userForm.get('country')?.valid" formControlName="country"/>
           </div>
         </div>
         <div class="mb-3">
