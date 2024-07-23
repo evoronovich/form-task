@@ -1,8 +1,8 @@
 import {AbstractControl, AsyncValidatorFn, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {Country} from '../enum/country';
-import {UsernameService} from '../../services/username.service';
 import {Observable, of, timer} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
+import {DataService} from '../../services/api/data.service';
 
 export function userFormValidators(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -15,14 +15,14 @@ export function userFormValidators(): ValidatorFn {
     return null;
   };
 }
-export function usernameValidator(usernameService: UsernameService): AsyncValidatorFn {
+export function usernameValidator(dataService: DataService): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
       return of(null);
     }
 
     return timer(300).pipe(
-      switchMap(() => usernameService.checkUsername(control.value)),
+      switchMap(() => dataService.checkUsername(control.value)),
       map(response => (!response.isAvailable ? {'usernameTaken': true} : null)),
     );
   };

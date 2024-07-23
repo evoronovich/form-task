@@ -1,6 +1,6 @@
 import {Component, EventEmitter, forwardRef, Input, Output, signal} from '@angular/core';
 import {ControlValueAccessor, FormArray, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {CreateUserForm} from '../../../model/create-user-form';
+import {CreateUserForm} from '../../../model/create-user-form.model';
 
 @Component({
   selector: 'app-user-form-actions',

@@ -1,3 +1,3 @@
-export interface CheckUsernameModel {
+export interface CheckUsernameResponse {
   isAvailable: boolean
 }

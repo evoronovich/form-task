@@ -29,7 +29,7 @@ export class IsValidDirective implements OnChanges {
     } else {
       inputElement = hostElement.getElementsByTagName('input')[0];
     }
-    if (!this.ngControl.valid) {
+    if (!this.ngControl.valid && this.ngControl.enabled) {
       this.renderer.removeClass(inputElement, 'is-valid');
       this.renderer.addClass(inputElement, 'is-invalid');
       if (!feedbackElement) {

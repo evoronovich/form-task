@@ -55,6 +55,9 @@ export class AutocompleteComponent implements ControlValueAccessor, OnDestroy {
    this.subscription.unsubscribe()
   }
 
+  public setDisabledState(isDisabled: boolean): void {
+    isDisabled ? this.autocompleteFormControl.disable() : this.autocompleteFormControl.enable();
+  }
   public search = (text$: Observable<string>) =>
     text$.pipe(
       map(term => term === '' ? []

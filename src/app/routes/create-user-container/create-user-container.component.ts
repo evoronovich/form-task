@@ -4,10 +4,11 @@ import {UserFormComponent} from './user-form/user-form.component';
 import {UserFormActionsComponent} from './user-form-actions/user-form-actions.component';
 import {FormArray, FormGroup, FormsModule} from '@angular/forms';
 import {CreateFormService} from '../../services/create-form.service';
-import {CreateUserForm} from '../../model/create-user-form';
-import {finalize, interval, Observable, of, Subject, take, takeUntil, tap, timer} from 'rxjs';
+import {CreateUserForm} from '../../model/create-user-form.model';
+import {finalize, Observable, of, Subject, take, takeUntil, tap, timer} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AsyncPipe} from '@angular/common';
+import {DataService} from '../../services/api/data.service';
 
 const COUNTDOWN_SECONDS = 5;
 
@@ -22,11 +23,11 @@ export class CreateUserContainerComponent implements OnInit, OnDestroy {
   public createUserFormArray = new FormArray<FormGroup<CreateUserForm>>([]);
   public invalidFormsCount = signal(1);
   private destroy$: Subject<void> = new Subject();
-  public isFormSubmitting: boolean = false;
   public countdown$?: Observable<number | null>;
   private cancelClicked$: Subject<void> = new Subject<void>();
 
-  constructor(private createFormService: CreateFormService) {
+  constructor(private createFormService: CreateFormService,
+              private dataService: DataService) {
   }
 
   public ngOnInit(): void {
@@ -53,16 +54,35 @@ export class CreateUserContainerComponent implements OnInit, OnDestroy {
   }
 
   public startTimer(): void {
-    this.isFormSubmitting = true;
     this.countdown$ = this.getCountdown();
+    this.toggleFormArray(false);
+  }
+
+  private toggleFormArray(enable: boolean) {
+    this.createUserFormArray.controls.forEach(c => enable ? c.enable() : c.disable());
   }
 
   public cancelTimer(): void {
     this.cancelClicked$.next();
+    this.toggleFormArray(true);
   }
 
   private submitForms(): void {
-
+    this.dataService.submitForms({
+      forms: this.createUserFormArray.controls.map(c => ({
+        country: c.get('country')?.getRawValue(),
+        username: c.get('username')?.getRawValue(),
+        birthday: c.get('birthday')?.getRawValue()
+      }))
+    }).pipe(tap(() => {
+      this.createUserFormArray.controls.forEach(c => c.setValue({
+        country: '',
+        username: '',
+        birthday: new Date()
+      }));
+      this.toggleFormArray(true);
+    }))
+      .subscribe()
   }
 
   getCountdown(): Observable<number> {
@@ -72,7 +92,6 @@ export class CreateUserContainerComponent implements OnInit, OnDestroy {
       takeUntil(this.cancelClicked$),
       finalize(() => {
         this.countdown$ = of(null);
-        this.isFormSubmitting = false;
       }),
       tap((secondsLeft) => secondsLeft === 0 && this.submitForms())
     );

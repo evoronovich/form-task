@@ -1,19 +1,19 @@
 import {Injectable} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CreateUserForm} from '../model/create-user-form';
+import {CreateUserForm} from '../model/create-user-form.model';
 import {
   dateLessThanTodayValidator,
   userFormValidators,
   usernameValidator
 } from '../shared/validators/user-form-validators';
-import {UsernameService} from './username.service';
+import {DataService} from './api/data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CreateFormService {
 
-  constructor(private usernameService: UsernameService) {
+  constructor(private usernameService: DataService) {
   }
 
   public createUserForm(): FormGroup<CreateUserForm> {
