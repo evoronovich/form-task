@@ -1,5 +1,10 @@
 <div class="col-12">
-  <button [disabled]="value > 0" class="btn btn-primary me-2">Submit all forms</button>
+  @if (countdown !== null) {
+    <button (click)="cancelButtonClicked.emit()" class="btn btn-danger me-2">Cancel</button>
+    <span>0:0{{countdown}}</span>
+  } @else {
+    <button (click)="submitButtonClicked.emit()" [disabled]="value > 0" class="btn btn-primary me-2">Submit all forms</button>
+  }
   @if (value > 0) {
     <span class="text-danger">Invalid forms: {{value}}</span>
   }

@@ -1,4 +1,4 @@
-import {Component, forwardRef, signal} from '@angular/core';
+import {Component, EventEmitter, forwardRef, Input, Output, signal} from '@angular/core';
 import {ControlValueAccessor, FormArray, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {CreateUserForm} from '../../../model/create-user-form';
 
@@ -16,6 +16,12 @@ import {CreateUserForm} from '../../../model/create-user-form';
   ]
 })
 export class UserFormActionsComponent implements ControlValueAccessor {
+  @Input()
+  public countdown: number | null = null;
+  @Output()
+  public submitButtonClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output()
+  public cancelButtonClicked: EventEmitter<void> = new EventEmitter<void>();
   public value!: number;
 
   private onChange: (value: number | null) => void = () => {};

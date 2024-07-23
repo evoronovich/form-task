@@ -1,7 +1,10 @@
 <div class="container mt-4">
   @if (createUserFormArray.length > 0) {
     <div class="row mb-3">
-      <app-user-form-actions name="fieldName" ngDefaultControl [(ngModel)]="invalidFormsCount"/>
+      <app-user-form-actions [countdown]="countdown$ | async"
+                             (submitButtonClicked)="startTimer()"
+                             (cancelButtonClicked)="cancelTimer()"
+                             name="fieldName" ngDefaultControl [(ngModel)]="invalidFormsCount"/>
     </div>
   }
   <div class="row">
