@@ -14,21 +14,21 @@ export class MockBackendInterceptor implements HttpInterceptor {
       return this.handleSubmitForm();
     }
 
-    return of(new HttpResponse({ status: 404, body: { result: 'You are using the wrong endpoint'} }));
+    return of(new HttpResponse({status: 404, body: {result: 'You are using the wrong endpoint'}}));
   }
 
   private handleCheckUsername(req: HttpRequest<any>): Observable<HttpResponse<CheckUserResponseData>> {
     const isAvailable = req.body.username.includes('new');
-    const response = new HttpResponse({ status: 200, body: { isAvailable } });
+    const response = new HttpResponse({status: 200, body: {isAvailable}});
 
     return of(response).pipe(
       delay(500),
-      tap(() => console.log('checkUsername response:', { isAvailable }))
+      tap(() => console.log('checkUsername response:', {isAvailable}))
     );
   }
 
   private handleSubmitForm(): Observable<HttpResponse<SubmitFormResponseData>> {
-    const response = new HttpResponse({ status: 200, body: { result: 'nice job' } });
+    const response = new HttpResponse({status: 200, body: {result: 'nice job'}});
 
     return of(response).pipe(
       delay(500),

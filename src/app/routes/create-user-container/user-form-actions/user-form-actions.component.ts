@@ -1,12 +1,12 @@
-import {Component, EventEmitter, forwardRef, Input, Output, signal} from '@angular/core';
-import {ControlValueAccessor, FormArray, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {CreateUserForm} from '../../../model/create-user-form.model';
+import {ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Output} from '@angular/core';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
   selector: 'app-user-form-actions',
   standalone: true,
   templateUrl: './user-form-actions.component.html',
   styleUrl: './user-form-actions.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -24,8 +24,10 @@ export class UserFormActionsComponent implements ControlValueAccessor {
   public cancelButtonClicked: EventEmitter<void> = new EventEmitter<void>();
   public value!: number;
 
-  private onChange: (value: number | null) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (value: number | null) => void = () => {
+  };
+  private onTouched: () => void = () => {
+  };
 
   writeValue(value: number): void {
     this.value = value;

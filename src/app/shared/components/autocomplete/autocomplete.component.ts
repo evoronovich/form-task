@@ -38,26 +38,31 @@ export class AutocompleteComponent implements ControlValueAccessor, OnDestroy {
   @Input()
   private subscription: Subscription = new Subscription();
 
-  onTouch: Function = () => {};
+  onTouch: Function = () => {
+  };
   autocompleteFormControl = new FormControl<string>('');
+
   registerOnTouched(fn: any): void {
     this.onTouch = fn;
   }
+
   writeValue(value: Country | null): void {
-    this.autocompleteFormControl.setValue(value, { emitEvent: false });
+    this.autocompleteFormControl.setValue(value, {emitEvent: false});
   }
 
   registerOnChange(fn: any): void {
     this.subscription.add(this.autocompleteFormControl.valueChanges
       .subscribe(fn));
   }
+
   ngOnDestroy(): void {
-   this.subscription.unsubscribe()
+    this.subscription.unsubscribe()
   }
 
   public setDisabledState(isDisabled: boolean): void {
     isDisabled ? this.autocompleteFormControl.disable() : this.autocompleteFormControl.enable();
   }
+
   public search = (text$: Observable<string>) =>
     text$.pipe(
       map(term => term === '' ? []

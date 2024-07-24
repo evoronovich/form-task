@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {CheckUsernameResponse} from '../../model/check-username.model';
-import {SubmitFormsRequest, SubmitFormsResponse} from '../../model/submit-forms.model';
+import {SubmitFormsRequest} from '../../model/submit-forms.model';
+import {CheckUserResponseData, SubmitFormResponseData} from '../../shared/interface/responses';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +11,17 @@ export class DataService {
 
   private apiUrl = '/api';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
-  checkUsername(username: string): Observable<CheckUsernameResponse> {
-    return this.http.post<CheckUsernameResponse>(`${this.apiUrl}/checkUsername`, {
+  checkUsername(username: string): Observable<CheckUserResponseData> {
+    return this.http.post<CheckUserResponseData>(`${this.apiUrl}/checkUsername`, {
       username
     });
   }
-  submitForms(formsRequest: SubmitFormsRequest): Observable<SubmitFormsResponse> {
-    return this.http.post<SubmitFormsResponse>(`${this.apiUrl}/submitForm`, {
+
+  submitForms(formsRequest: SubmitFormsRequest): Observable<SubmitFormResponseData> {
+    return this.http.post<SubmitFormResponseData>(`${this.apiUrl}/submitForm`, {
       formsRequest
     });
   }

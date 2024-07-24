@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CreateUserForm} from '../../../model/create-user-form.model';
 import {IsValidDirective} from '../../../shared/directives/is-valid.directive';
@@ -12,6 +12,7 @@ import {AutocompleteComponent} from '../../../shared/components/autocomplete/aut
   standalone: true,
   imports: [ReactiveFormsModule, IsValidDirective, NgForOf, NgIf, AsyncPipe, NgbTypeahead, AutocompleteComponent],
   templateUrl: './user-form.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './user-form.component.scss'
 })
 export class UserFormComponent {

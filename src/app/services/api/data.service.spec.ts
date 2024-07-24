@@ -1,8 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {DataService} from './data.service';
-import {CheckUsernameResponse} from '../../model/check-username.model';
-import {SubmitFormsRequest, SubmitFormsResponse} from '../../model/submit-forms.model';
+import {SubmitFormsRequest} from '../../model/submit-forms.model';
+import {CheckUserResponseData, SubmitFormResponseData} from '../../shared/interface/responses';
 
 describe('DataService', () => {
   let service: DataService;
@@ -24,7 +24,7 @@ describe('DataService', () => {
 
   describe('checkUsername', () => {
     it('should send a POST request to check the username', () => {
-      const mockResponse: CheckUsernameResponse = {isAvailable: true};
+      const mockResponse: CheckUserResponseData = {isAvailable: true};
       const username = 'testuser';
 
       service.checkUsername(username).subscribe(response => {
@@ -47,7 +47,7 @@ describe('DataService', () => {
           birthday: new Date()
         }]
       };
-      const mockResponse: SubmitFormsResponse = {result: 'nice job'};
+      const mockResponse: SubmitFormResponseData = {result: 'nice job'};
 
       service.submitForms(formsRequest).subscribe(response => {
         expect(response).toEqual(mockResponse);

@@ -1,6 +1,3 @@
-export interface SubmitFormsResponse {
-  result: string;
-}
 export interface SubmitFormsRequest {
   forms: User[];
 }

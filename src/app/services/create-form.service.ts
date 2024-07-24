@@ -2,15 +2,13 @@ import {Injectable} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CreateUserForm} from '../model/create-user-form.model';
 import {
+  countryValidator,
   dateLessThanTodayValidator,
-  userFormValidators,
   usernameValidator
 } from '../shared/validators/user-form-validators';
 import {DataService} from './api/data.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class CreateFormService {
 
   constructor(private usernameService: DataService) {
@@ -21,7 +19,7 @@ export class CreateFormService {
       country: new FormControl(null, {
         validators: [
           Validators.required,
-          userFormValidators()
+          countryValidator()
         ]
       }),
       username: new FormControl(null, {

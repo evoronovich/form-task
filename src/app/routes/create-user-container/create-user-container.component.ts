@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal} from '@angular/core';
 import {AddFormButton} from './add-user-form/add-form-button.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {UserFormActionsComponent} from './user-form-actions/user-form-actions.component';
@@ -16,6 +16,8 @@ const COUNTDOWN_SECONDS = 5;
   selector: 'app-create-user-container',
   standalone: true,
   imports: [AddFormButton, UserFormComponent, UserFormActionsComponent, FormsModule, AsyncPipe],
+  providers: [CreateFormService],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './create-user-container.component.html',
   styleUrl: './create-user-container.component.scss'
 })

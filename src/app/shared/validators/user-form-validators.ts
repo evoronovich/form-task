@@ -4,7 +4,7 @@ import {Observable, of, timer} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {DataService} from '../../services/api/data.service';
 
-export function userFormValidators(): ValidatorFn {
+export function countryValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     if (!control.value) {
       return null;
@@ -15,6 +15,7 @@ export function userFormValidators(): ValidatorFn {
     return null;
   };
 }
+
 export function usernameValidator(dataService: DataService): AsyncValidatorFn {
   return (control: AbstractControl): Observable<ValidationErrors | null> => {
     if (!control.value) {
@@ -38,7 +39,7 @@ export function dateLessThanTodayValidator(): ValidatorFn {
     }
     const inputDate = new Date(value);
     if (inputDate >= today) {
-      return { 'dateLessThanToday': { value: control.value } };
+      return {'dateLessThanToday': {value: control.value}};
     }
     return null;
   };
