@@ -1,8 +1,8 @@
 import {TestBed} from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {DataService} from './data.service';
-import {SubmitFormsRequest} from '../../model/submit-forms.model';
 import {CheckUserResponseData, SubmitFormResponseData} from '../../shared/interface/responses';
+import {SubmitFormsRequest} from '../../shared/model/submit-forms.model';
 
 describe('DataService', () => {
   let service: DataService;
