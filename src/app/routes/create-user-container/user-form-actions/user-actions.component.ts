@@ -2,20 +2,20 @@ import {ChangeDetectionStrategy, Component, EventEmitter, forwardRef, Input, Out
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
-  selector: 'app-user-form-actions',
+  selector: 'user-actions',
   standalone: true,
-  templateUrl: './user-form-actions.component.html',
-  styleUrl: './user-form-actions.component.scss',
+  templateUrl: './user-actions.component.html',
+  styleUrl: './user-actions.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => UserFormActionsComponent),
+      useExisting: forwardRef(() => UserActionsComponent),
       multi: true
     }
   ]
 })
-export class UserFormActionsComponent implements ControlValueAccessor {
+export class UserActionsComponent implements ControlValueAccessor {
   @Input()
   public countdown: number | null = null;
   @Output()

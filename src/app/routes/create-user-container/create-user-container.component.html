@@ -1,21 +1,21 @@
 <div class="container mt-4">
   @if (createUserFormArray.length > 0) {
     <div class="row mb-3">
-      <app-user-form-actions [countdown]="countdown$ | async"
-                             (submitButtonClicked)="startTimer()"
-                             (cancelButtonClicked)="cancelTimer()"
-                             name="fieldName" ngDefaultControl [(ngModel)]="invalidFormsCount"/>
+      <user-actions [countdown]="countdown$ | async"
+                    (submitButtonClicked)="startTimer()"
+                    (cancelButtonClicked)="cancelTimer()"
+                    name="fieldName" ngDefaultControl [(ngModel)]="invalidFormsCount"/>
     </div>
   }
   <div class="row">
     @for (form of createUserFormArray.controls; track form; let index = $index) {
       <div class="col-md-6">
-        <app-user-form [userForm]="form" [formIndex]="index" (removeForm)="removeForm($event)"/>
+        <user-card [userForm]="form" [formIndex]="index" (removeForm)="removeForm($event)"/>
       </div>
     }
 
     <div class="col-md-6 d-flex justify-content-center align-items-center">
-      <app-add-form-button [formsCount]="createUserFormArray.length" (addFormClicked)="addNewForm()"/>
+      <add-user-button [formsCount]="createUserFormArray.length" (addFormClicked)="addNewForm()"/>
     </div>
   </div>
 </div>

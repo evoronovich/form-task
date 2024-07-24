@@ -1,28 +1,30 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal} from '@angular/core';
-import {AddFormButton} from './add-user-form/add-form-button.component';
-import {UserFormComponent} from './user-form/user-form.component';
-import {UserFormActionsComponent} from './user-form-actions/user-form-actions.component';
-import {FormArray, FormGroup, FormsModule} from '@angular/forms';
+import {AddUserButton} from './add-user/add-user-button.component';
+import {UserCardComponent} from './user-card/user-card.component';
+import {UserActionsComponent} from './user-form-actions/user-actions.component';
+import {FormGroup, FormsModule} from '@angular/forms';
 import {CreateFormService} from '../../services/create-form.service';
-import {CreateUserForm} from '../../model/create-user-form.model';
 import {finalize, Observable, of, Subject, take, takeUntil, tap, timer} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AsyncPipe} from '@angular/common';
 import {DataService} from '../../services/api/data.service';
+import {CreateUserForm} from '../../shared/model/create-user-form.model';
+import {UserFormArray} from '../../shared/form/user-form-array';
 
 const COUNTDOWN_SECONDS = 5;
 
 @Component({
   selector: 'app-create-user-container',
   standalone: true,
-  imports: [AddFormButton, UserFormComponent, UserFormActionsComponent, FormsModule, AsyncPipe],
+  imports: [AddUserButton, UserCardComponent, UserActionsComponent, FormsModule, AsyncPipe],
   providers: [CreateFormService],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './create-user-container.component.html',
   styleUrl: './create-user-container.component.scss'
 })
 export class CreateUserContainerComponent implements OnInit, OnDestroy {
-  public createUserFormArray = new FormArray<FormGroup<CreateUserForm>>([]);
+  public createUserFormArray: UserFormArray<FormGroup<CreateUserForm>> =
+    new UserFormArray<FormGroup<CreateUserForm>>([]);
   public invalidFormsCount = signal(1);
   private destroy$: Subject<void> = new Subject();
   public countdown$?: Observable<number | null>;
@@ -38,7 +40,7 @@ export class CreateUserContainerComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(this.destroy$),
         tap(() => this.invalidFormsCount.set(
-          this.createUserFormArray?.controls.filter(c => c.invalid).length))
+          this.createUserFormArray?.getInvalidControlsCount()))
       )
       .subscribe()
   }
@@ -57,32 +59,20 @@ export class CreateUserContainerComponent implements OnInit, OnDestroy {
 
   public startTimer(): void {
     this.countdown$ = this.getCountdown();
-    this.toggleFormArray(false);
-  }
-
-  private toggleFormArray(enable: boolean) {
-    this.createUserFormArray.controls.forEach(c => enable ? c.enable() : c.disable());
+    this.createUserFormArray.toggleFormArray(false);
   }
 
   public cancelTimer(): void {
     this.cancelClicked$.next();
-    this.toggleFormArray(true);
+    this.createUserFormArray.toggleFormArray(true);
   }
 
   private submitForms(): void {
     this.dataService.submitForms({
-      forms: this.createUserFormArray.controls.map(c => ({
-        country: c.get('country')?.getRawValue(),
-        username: c.get('username')?.getRawValue(),
-        birthday: c.get('birthday')?.getRawValue()
-      }))
+      forms: this.createUserFormArray.getFormValues()
     }).pipe(tap(() => {
-      this.createUserFormArray.controls.forEach(c => c.setValue({
-        country: '',
-        username: '',
-        birthday: new Date()
-      }));
-      this.toggleFormArray(true);
+      this.createUserFormArray.clearFormArrayValues();
+      this.createUserFormArray.toggleFormArray(true);
     }))
       .subscribe()
   }

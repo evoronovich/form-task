@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {SubmitFormsRequest} from '../../model/submit-forms.model';
 import {CheckUserResponseData, SubmitFormResponseData} from '../../shared/interface/responses';
+import {SubmitFormsRequest} from '../../shared/model/submit-forms.model';
 
 @Injectable({
   providedIn: 'root'

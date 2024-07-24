@@ -1,0 +1,29 @@
+<div class="card">
+  <button (click)="removeForm.emit(formIndex)" type="button" class="btn-close position-absolute top-0 end-0 m-2"
+          aria-label="Close"></button>
+  <form [formGroup]="userForm">
+    <div class="card-body">
+      <form>
+        <div class="mb-3">
+          <label [for]="'country' + formIndex" class="form-label">Country</label>
+          <div class="autocomplete-container">
+            <app-autocomplete [name]="'country' + formIndex" [id]="'country' + formIndex"
+                              [options]="countries"
+                              isInputInvalid formControlName="country"/>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label [for]="'username' + formIndex" class="form-label">Username</label>
+          <input isInputInvalid formControlName="username" type="text" [id]="'username' + formIndex"
+                 class="form-control" [name]="'username' + formIndex">
+        </div>
+        <div class="mb-3">
+          <label [for]="'birthday' + formIndex" class="form-label">Birthday</label>
+          <input isInputInvalid formControlName="birthday" type="date" [id]="'birthday' + formIndex"
+                 class="form-control" [name]="'birthday' + formIndex">
+        </div>
+      </form>
+    </div>
+  </form>
+
+</div>

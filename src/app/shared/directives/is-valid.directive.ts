@@ -3,7 +3,7 @@ import {NgControl} from '@angular/forms';
 import {Subscription, tap} from 'rxjs';
 
 @Directive({
-  selector: '[appIsInvalid]',
+  selector: '[isInputInvalid]',
   standalone: true
 })
 export class IsValidDirective implements OnInit, OnDestroy {
@@ -47,7 +47,8 @@ export class IsValidDirective implements OnInit, OnDestroy {
         this.renderer.setStyle(feedbackElement, 'display', 'block');
         this.renderer.appendChild(parentElement, feedbackElement);
       }
-      this.renderer.setProperty(feedbackElement, 'textContent', `Please provide a correct ${this.ngControl.name}`);
+      this.renderer.setProperty(feedbackElement, 'textContent', `Please provide a correct
+      ${this.capitalizeFirstLetter(this.ngControl.name as string)}`);
     } else {
       this.renderer.removeClass(inputElement, 'is-invalid');
       this.renderer.addClass(inputElement, 'is-valid');
@@ -55,5 +56,9 @@ export class IsValidDirective implements OnInit, OnDestroy {
         this.renderer.removeChild(parentElement, feedbackElement);
       }
     }
+  }
+
+  capitalizeFirstLetter(word: string) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 }

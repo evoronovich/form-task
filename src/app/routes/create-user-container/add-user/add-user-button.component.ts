@@ -1,14 +1,14 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
-  selector: 'app-add-form-button',
+  selector: 'add-user-button',
   standalone: true,
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './add-form-button.component.html',
-  styleUrl: './add-form-button.component.scss'
+  templateUrl: './add-user-button.component.html',
+  styleUrl: './add-user-button.component.scss'
 })
-export class AddFormButton {
+export class AddUserButton {
   @Input()
   formsCount!: number;
   @Output()

@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CreateUserForm} from '../model/create-user-form.model';
 import {
   countryValidator,
   dateLessThanTodayValidator,
   usernameValidator
 } from '../shared/validators/user-form-validators';
 import {DataService} from './api/data.service';
+import {CreateUserForm} from '../shared/model/create-user-form.model';
 
 @Injectable()
 export class CreateFormService {
