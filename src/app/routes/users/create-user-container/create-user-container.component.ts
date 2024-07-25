@@ -15,7 +15,7 @@ import {DataService} from '../../../services/api/data.service';
 const COUNTDOWN_SECONDS = 5;
 
 @Component({
-  selector: 'app-create-user-container',
+  selector: 'create-user-container',
   standalone: true,
   imports: [AddUserButton, UserCardComponent, UserActionsComponent, FormsModule, AsyncPipe],
   providers: [CreateFormService],
