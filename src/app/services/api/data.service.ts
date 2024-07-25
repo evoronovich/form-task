@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CheckUserResponseData, SubmitFormResponseData} from '../../shared/interface/responses';
@@ -10,9 +10,7 @@ import {SubmitFormsRequest} from '../../shared/model/submit-forms.model';
 export class DataService {
 
   private apiUrl = '/api';
-
-  constructor(private http: HttpClient) {
-  }
+  private http: HttpClient = inject(HttpClient)
 
   checkUsername(username: string): Observable<CheckUserResponseData> {
     return this.http.post<CheckUserResponseData>(`${this.apiUrl}/checkUsername`, {

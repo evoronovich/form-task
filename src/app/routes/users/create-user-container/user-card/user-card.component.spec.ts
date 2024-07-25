@@ -2,9 +2,10 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {UserCardComponent} from './user-card.component';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {By} from '@angular/platform-browser';
-import {AutocompleteComponent} from '../../../shared/components/autocomplete/autocomplete.component';
-import {IsValidDirective} from '../../../shared/directives/is-valid.directive';
-import {countries} from '../../../shared/enum/country';
+import {AutocompleteComponent} from '../../../../shared/components/autocomplete/autocomplete.component';
+import {IsValidDirective} from '../../../../shared/directives/is-valid.directive';
+import {countries} from '../../../../shared/enum/country';
+
 
 describe('UserCardComponent', () => {
   let component: UserCardComponent;

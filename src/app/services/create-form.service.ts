@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {
   countryValidator,
@@ -10,9 +10,7 @@ import {CreateUserForm} from '../shared/model/create-user-form.model';
 
 @Injectable()
 export class CreateFormService {
-
-  constructor(private usernameService: DataService) {
-  }
+  private usernameService: DataService = inject(DataService);
 
   public createUserForm(): FormGroup<CreateUserForm> {
     return new FormGroup<CreateUserForm>({

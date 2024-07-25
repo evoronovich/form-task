@@ -1,8 +1,9 @@
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserFormArray} from './user-form-array'; // Adjust the import path as needed
+import {UserFormArray} from './user-form-array';
+import {User} from '../model/submit-forms.model'; // Adjust the import path as needed
 
 describe('UserFormArray', () => {
-  let formArray: UserFormArray<FormGroup<any>>;
+  let formArray: UserFormArray<User, FormGroup<any>>;
 
   beforeEach(() => {
     const controls = [
@@ -17,7 +18,7 @@ describe('UserFormArray', () => {
         birthday: new FormControl(new Date(1990, 5, 15))
       })
     ];
-    formArray = new UserFormArray<FormGroup<any>>(controls);
+    formArray = new UserFormArray<User, FormGroup<any>>(controls);
   });
 
   it('should toggle form array controls', () => {
@@ -42,11 +43,11 @@ describe('UserFormArray', () => {
   });
 
   it('should clear form array values', () => {
-    formArray.clearFormArrayValues();
+    formArray.clearFormArrayValues({country: '', username: '', birthday: null});
 
     const clearedValues = [
-      {country: '', username: '', birthday: new Date()},
-      {country: '', username: '', birthday: new Date()}
+      {country: '', username: '', birthday: null},
+      {country: '', username: '', birthday: null}
     ];
 
     expect(formArray.getFormValues()).toEqual(clearedValues);

@@ -1,7 +1,6 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {AddUserButton} from './add-user-button.component';
 import {By} from '@angular/platform-browser';
-import {ChangeDetectionStrategy} from '@angular/core';
 
 describe('AddUserButton', () => {
   let component: AddUserButton;

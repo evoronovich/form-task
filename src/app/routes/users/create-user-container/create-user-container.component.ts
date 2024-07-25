@@ -1,15 +1,16 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import {AddUserButton} from './add-user/add-user-button.component';
 import {UserCardComponent} from './user-card/user-card.component';
-import {UserActionsComponent} from './user-form-actions/user-actions.component';
+import {UserActionsComponent} from './user-actions/user-actions.component';
 import {FormGroup, FormsModule} from '@angular/forms';
-import {CreateFormService} from '../../services/create-form.service';
 import {finalize, Observable, of, Subject, take, takeUntil, tap, timer} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {AsyncPipe} from '@angular/common';
-import {DataService} from '../../services/api/data.service';
-import {CreateUserForm} from '../../shared/model/create-user-form.model';
-import {UserFormArray} from '../../shared/form/user-form-array';
+import {CreateFormService} from '../../../services/create-form.service';
+import {UserFormArray} from '../../../shared/form/user-form-array';
+import {User} from '../../../shared/model/submit-forms.model';
+import {CreateUserForm} from '../../../shared/model/create-user-form.model';
+import {DataService} from '../../../services/api/data.service';
 
 const COUNTDOWN_SECONDS = 5;
 
@@ -23,16 +24,14 @@ const COUNTDOWN_SECONDS = 5;
   styleUrl: './create-user-container.component.scss'
 })
 export class CreateUserContainerComponent implements OnInit, OnDestroy {
-  public createUserFormArray: UserFormArray<FormGroup<CreateUserForm>> =
-    new UserFormArray<FormGroup<CreateUserForm>>([]);
+  public createUserFormArray: UserFormArray<User, FormGroup<CreateUserForm>> =
+    new UserFormArray<User, FormGroup<CreateUserForm>>([]);
   public invalidFormsCount = signal(1);
   private destroy$: Subject<void> = new Subject();
   public countdown$?: Observable<number | null>;
   private cancelClicked$: Subject<void> = new Subject<void>();
-
-  constructor(private createFormService: CreateFormService,
-              private dataService: DataService) {
-  }
+  private createFormService: CreateFormService = inject(CreateFormService);
+  private dataService: DataService = inject(DataService);
 
   public ngOnInit(): void {
     this.addNewForm();
@@ -71,7 +70,7 @@ export class CreateUserContainerComponent implements OnInit, OnDestroy {
     this.dataService.submitForms({
       forms: this.createUserFormArray.getFormValues()
     }).pipe(tap(() => {
-      this.createUserFormArray.clearFormArrayValues();
+      this.createUserFormArray.clearFormArrayValues({country: '', username: '', birthday: null});
       this.createUserFormArray.toggleFormArray(true);
     }))
       .subscribe()

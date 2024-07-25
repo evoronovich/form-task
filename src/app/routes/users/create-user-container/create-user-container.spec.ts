@@ -2,16 +2,16 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {CreateUserContainerComponent} from './create-user-container.component';
 import {UserCardComponent} from './user-card/user-card.component';
 import {AddUserButton} from './add-user/add-user-button.component';
-import {UserActionsComponent} from './user-form-actions/user-actions.component';
+import {UserActionsComponent} from './user-actions/user-actions.component';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {CreateFormService} from '../../services/create-form.service';
-import {DataService} from '../../services/api/data.service';
 import {of} from 'rxjs';
 import {By} from '@angular/platform-browser';
-import {AutocompleteComponent} from '../../shared/components/autocomplete/autocomplete.component';
-import {IsValidDirective} from '../../shared/directives/is-valid.directive';
 import {marbles} from 'rxjs-marbles/jest';
 import SpyInstance = jest.SpyInstance;
+import {DataService} from '../../../services/api/data.service';
+import {AutocompleteComponent} from '../../../shared/components/autocomplete/autocomplete.component';
+import {IsValidDirective} from '../../../shared/directives/is-valid.directive';
+import {CreateFormService} from '../../../services/create-form.service';
 
 describe('CreateUserContainerComponent', () => {
   let component: CreateUserContainerComponent;

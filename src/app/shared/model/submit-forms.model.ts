@@ -4,5 +4,5 @@ export interface SubmitFormsRequest {
 export interface User {
   country: string;
   username: string;
-  birthday: Date;
+  birthday: Date | null;
 }
